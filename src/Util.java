@@ -5,8 +5,7 @@ public class Util {
     public static void listProducts() {
     }
 
-    public static void registerProduct() {
-        
+    public static void registerProduct() { 
     }
 
     public static String options() {
