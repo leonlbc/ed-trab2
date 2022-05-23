@@ -1,4 +1,4 @@
-import javax.swing.JOptionPane;
+import Exceptions.ObjectAlreadyExists;
 
 public class Main {
     public static void main(String[] args) {
@@ -7,13 +7,13 @@ public class Main {
 
         try {
             do {
-                option = Integer.parseInt(JOptionPane.showInputDialog(Util.options()));
+                option = Integer.parseInt(Util.chooseOption());
                 switch (option) {
                     case 1:
-                        Util.registerProduct();
+                        Util.registerProduct(stock);
                         break;
                     case 2:
-                        Util.listProducts();
+                        Util.listProducts(stock);
                         break;
                     case 3:
                         Util.sellProduct();
@@ -22,9 +22,12 @@ public class Main {
                         break;
                 }
             } while (option != 4);
-        } catch (Exception e) {
+        } catch (ObjectAlreadyExists e) {
+            // TODO
+        }
+        catch (Exception e) {
             //TODO Handle Exceptions
             System.out.println(e);
-        }   
+        }
     }
 }
