@@ -43,4 +43,12 @@ public class OrderedList<T extends Comparable<T>> {
 
         return exists;
     }
+
+    public String listAll(){
+        String list = "";
+        for (Node<T> i = first; i != null; i = i.right) {
+            list += i.data.toString() + "\n";
+        }
+        return list;
+    }
 }
