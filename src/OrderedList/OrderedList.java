@@ -67,7 +67,7 @@ public class OrderedList<T extends Comparable<T>> {
         return list;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         if (first == null) {
             return true;
         }
