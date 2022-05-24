@@ -1,12 +1,13 @@
-import Exceptions.ObjectAlreadyExists;
+import Exceptions.NodeAlreadyExists;
+import OrderedList.OrderedList;
 
 public class Main {
     public static void main(String[] args) {
         int option = 0;
         OrderedList<Product> stock = new OrderedList<Product>();
 
-        try {
-            do {
+        do {
+            try {
                 option = Integer.parseInt(Util.chooseOption());
                 switch (option) {
                     case 1:
@@ -16,18 +17,17 @@ public class Main {
                         Util.listProducts(stock);
                         break;
                     case 3:
-                        Util.sellProduct();
+                        Util.sellProduct(stock);
                         break;
                     default:
                         break;
                 }
-            } while (option != 4);
-        } catch (ObjectAlreadyExists e) {
-            // TODO
-        }
-        catch (Exception e) {
-            //TODO Handle Exceptions
-            System.out.println(e);
-        }
+            }
+            catch (Exception e) {
+                System.out.println(e);
+                String message = e.getMessage() == null ? "Error" : e.getMessage();
+                Util.errorMessage(message);
+            }
+        } while (option != 4);
     }
 }
