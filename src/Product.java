@@ -1,15 +1,19 @@
 public class Product implements Comparable<Product> {
 
     private String name;
-    private int stock_quantity;
+    private int stock_amount;
     private String expiration_date;
 
     public Product(){
     }
 
-    public Product(String name, int stock_quantity, String expiration_date){
+    public Product(String name){
         this.name = name;
-        this.stock_quantity = stock_quantity;
+    }
+
+    public Product(String name, int stock_amount, String expiration_date){
+        this.name = name;
+        this.stock_amount = stock_amount;
         this.expiration_date = expiration_date;
     }
 
@@ -21,12 +25,12 @@ public class Product implements Comparable<Product> {
         this.name = name;
     }
 
-    public int getStockQuantity() {
-        return stock_quantity;
+    public int getStockAmount() {
+        return stock_amount;
     }
 
-    public void setStockQuantity(int stock_quantity) {
-        this.stock_quantity = stock_quantity;
+    public void setStockAmount(int stock_amount) {
+        this.stock_amount = stock_amount;
     }
 
     public String getExpirationDate() {
@@ -39,7 +43,7 @@ public class Product implements Comparable<Product> {
 
     @Override
     public String toString() {
-        return "Name: " + name + ", Quantity In Stock: " + stock_quantity + ", Expiration Date: " + expiration_date;
+        return "Name = " + name + " || Amount In Stock = " + stock_amount + " || Expiration Date = " + expiration_date;
     }
 
     @Override
