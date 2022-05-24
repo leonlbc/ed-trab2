@@ -8,7 +8,6 @@ public class OrderedList<T extends Comparable<T>> {
     public void Insert(T obj) throws NodeAlreadyExists{
         Node<T> aux = new Node<>(obj);
         boolean exists = nodeExists(aux);
-
         if(!exists){
             if(first == null) {
                 first = aux;
@@ -16,16 +15,22 @@ public class OrderedList<T extends Comparable<T>> {
             } else {
                 for (Node<T> i = first; i != null; i = i.right) {
                     if (aux.data.compareTo(i.data) <= 0) {
-                        aux.right = i;
+                        Node<T> i_left = i.left;
                         i.left = aux;
+                        aux.right = i;
                         if (i == first) {
                             first = aux;
+                            break;
                         }
+                        i_left.right = aux;
+                        aux.left = i_left;
+                        break;
                     } 
                     else if (i == last) {
                         aux.left = i;
                         i.right = aux;
                         last = aux;
+                        break;
                     }
                 }
             }
@@ -36,9 +41,11 @@ public class OrderedList<T extends Comparable<T>> {
 
     public boolean nodeExists(Node<T> Node){
         boolean exists = false;
-        for (Node<T> i = first; i != null; i = i.right) {
-            if(i.data.equals(Node.data)){
-                exists = true;
+        if (!isEmpty()) {
+            for (Node<T> i = first; i != null; i = i.right) {
+                if(i.data.equals(Node.data)){
+                    exists = true;
+                }
             }
         }
         return exists;
@@ -52,15 +59,31 @@ public class OrderedList<T extends Comparable<T>> {
                     return i;
                 }
             }
-        } 
+        }
         throw new NoSuchElementException("No objects found.");
+    }
+
+    public void remove(T obj) throws NoSuchElementException{
+        if (!isEmpty()){
+            Node<T> aux = find(obj);
+            if (aux == first) {
+                first = aux.right;
+                aux.right.left = null;
+            } else if (aux == last) {
+                last = aux.left;
+                aux.left.right = null;
+            } else {
+                aux.left.right = aux.right;
+                aux.right.left = aux.left;
+            }
+        }
     }
 
     public String listAll(){
         String list = "[";
         if (!isEmpty()) {
             for (Node<T> i = first; i != null; i = i.right) {
-                list += i.data.toString() + "\n";
+                list = i == last ? list + i.data.toString() : list + i.data.toString() + "\n";
             }
         }
         list += "]";
