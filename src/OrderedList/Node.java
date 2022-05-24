@@ -9,4 +9,8 @@ public class Node<T>{
         this.data = data;
     }
 
+    public T toObject() {
+        return this.data;
+    }
+
 }
