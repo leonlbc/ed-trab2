@@ -28,7 +28,7 @@ public class Main {
             }
             catch (Exception e) {
                 System.out.println(e);
-                String message = e.getMessage() == null ? "Error" : e.getMessage();
+                String message = e.getMessage() == null ? "Operation Failed" : e.getMessage();
                 Util.errorMessage(message);
             }
         } while (option != 4);
