@@ -3,6 +3,7 @@ import java.util.NoSuchElementException;
 import javax.management.InvalidAttributeValueException;
 import javax.swing.JOptionPane;
 import Exceptions.NodeAlreadyExists;
+import Exceptions.NotEnoughInStock;
 import OrderedList.OrderedList;
 
 public class Util {
@@ -15,15 +16,16 @@ public class Util {
         int amount = Integer.parseInt(JOptionPane.showInputDialog(
                      String.format("Amount to Sell \n[%s in stock]", stock_amount)));
         
-        stock_amount -= amount;
-        if (stock_amount > 0) {
-            productToSell.setStockAmount(stock_amount);
-        } else if ( stock_amount == 0) {
-            stock.remove(productToSell);
-        } 
-        else {
-            throw new InvalidAttributeValueException(
-                "Operation Failed: \n Not enough stocks to sell");
+        try {
+            productToSell.sell(amount);
+            if (productToSell.getStockAmount() == 0) {
+                stock.remove(productToSell);
+                JOptionPane.showMessageDialog(null, "Product sold and removed from stock (0 left)");
+                return;
+            } 
+            JOptionPane.showMessageDialog(null , "Product sold");
+        } catch (NotEnoughInStock e) {
+            Util.errorMessage(e.getMessage());
         }
     }
 
@@ -87,9 +89,5 @@ public class Util {
 
     public static void errorMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
-    }
-
-    public static void optionPaneInput(){
-
     }
 }

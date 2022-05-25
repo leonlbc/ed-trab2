@@ -15,15 +15,14 @@ public class OrderedList<T extends Comparable<T>> {
             } else {
                 for (Node<T> i = first; i != null; i = i.right) {
                     if (aux.data.compareTo(i.data) <= 0) {
-                        Node<T> i_left = i.left;
+                        aux.left = i.left;
                         i.left = aux;
                         aux.right = i;
                         if (i == first) {
                             first = aux;
                             break;
                         }
-                        i_left.right = aux;
-                        aux.left = i_left;
+                        aux.left.right = aux;
                         break;
                     } 
                     else if (i == last) {
@@ -35,7 +34,7 @@ public class OrderedList<T extends Comparable<T>> {
                 }
             }
         } else {
-            throw new NodeAlreadyExists("An object with this name already exists!");
+            throw new NodeAlreadyExists();
         }    
     }
 
