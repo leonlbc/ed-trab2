@@ -22,6 +22,10 @@ public class Main {
                         break;
                 }
             }
+            catch (NumberFormatException e){
+                e.printStackTrace();
+                Util.errorMessage("Invalid Option");
+            }
             catch (Exception e) {
                 System.out.println(e);
                 String message = e.getMessage() == null ? "Error" : e.getMessage();

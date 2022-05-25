@@ -1,3 +1,5 @@
+import Exceptions.NotEnoughInStock;
+
 public class Product implements Comparable<Product> {
 
     private String name;
@@ -33,6 +35,15 @@ public class Product implements Comparable<Product> {
         this.stock_amount = stock_amount;
     }
 
+    public void sell(int amount) throws NotEnoughInStock{
+        amount = this.stock_amount - amount;
+        if (amount >= 0) {
+            this.setStockAmount(amount);
+            return;
+        }
+        throw new NotEnoughInStock();
+    }
+
     public String getExpirationDate() {
         return expiration_date;
     }
@@ -43,7 +54,7 @@ public class Product implements Comparable<Product> {
 
     @Override
     public String toString() {
-        return "Name = " + name + " || Amount In Stock = " + stock_amount + " || Expiration Date = " + expiration_date;
+        return "Name: " + name + "|__|Amount In Stock: " + stock_amount + "|__|Expiration Date: " + expiration_date;
     }
 
     @Override

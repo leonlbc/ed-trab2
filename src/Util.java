@@ -9,7 +9,7 @@ public class Util {
     public static void sellProduct(OrderedList<Product> stock) throws NoSuchElementException, InvalidAttributeValueException{
         String name = JOptionPane.showInputDialog("Product Name");
         Product productToSell = new Product(name);
-        productToSell = stock.find(productToSell).toObject(); // Throws NoSuchE..
+        productToSell = stock.find(productToSell).toObject();
         
         int stock_amount = productToSell.getStockAmount();
         int amount = Integer.parseInt(JOptionPane.showInputDialog(
@@ -32,12 +32,39 @@ public class Util {
     }
 
     public static void registerProduct(OrderedList<Product> stock) throws NodeAlreadyExists{ 
-        String name = JOptionPane.showInputDialog("Product Name: ");
-        String expiration = JOptionPane.showInputDialog("Expiration Date (DD/MM/YY): ");
-        int stock_amount = Integer.parseInt(JOptionPane.showInputDialog("Amount in Stock: "));
+        String name = "";
+        String expiration = "";
+        int stock_amount = 0;
+
+        while (name.trim().equals("")) {
+            name = JOptionPane.showInputDialog("Product Name (Can't Be Blank)");
+            if (name == null) {
+                return;
+            }
+        }
+
+        while (expiration.trim().equals("")) {
+            expiration = JOptionPane.showInputDialog("Expiration Date (DD/MM/YY): ");
+            if (expiration == null) {
+                return;
+            }
+        }
+        
+        while (stock_amount <= 0){
+            try {
+                String input = JOptionPane.showInputDialog("Amount in Stock (At Least One)");
+                if (input == null) {
+                    return;
+                }
+                stock_amount = Integer.parseInt(input);
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Enter a valid positive number");
+            }
+        }
         
         Product product = new Product(name, stock_amount, expiration);
-        stock.Insert(product); //throws NodeAlreadyExists
+        stock.Insert(product);
         JOptionPane.showMessageDialog(null, "Product Added Successfully!");
     }
 
@@ -62,5 +89,7 @@ public class Util {
         JOptionPane.showMessageDialog(null, message);
     }
 
+    public static void optionPaneInput(){
 
+    }
 }
