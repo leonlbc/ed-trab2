@@ -1,5 +1,6 @@
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.NoSuchElementException;
-
 import javax.management.InvalidAttributeValueException;
 import javax.swing.JOptionPane;
 import Exceptions.NodeAlreadyExists;
@@ -7,6 +8,8 @@ import Exceptions.NotEnoughInStock;
 import OrderedList.OrderedList;
 
 public class Util {
+    private static DateTimeFormatter ofLocalizedDate;
+
     public static void sellProduct(OrderedList<Product> stock) throws NoSuchElementException, InvalidAttributeValueException{
         String name = JOptionPane.showInputDialog("Product Name");
         Product productToSell = new Product(name);
@@ -39,24 +42,25 @@ public class Util {
 
         while (name.trim().equals("")) {
             name = JOptionPane.showInputDialog("Product Name (Can't Be Blank)");
-            if (name == null) {
-                return;
-            }
+            if (name == null) {return;}
         }
 
         while (expiration.trim().equals("")) {
-            expiration = JOptionPane.showInputDialog("Expiration Date (DD/MM/YY): ");
-            if (expiration == null) {
-                return;
-            }
+            expiration = JOptionPane.showInputDialog("Expiration Date (DD/MM/YYYY): ");
+            ofLocalizedDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+            if (expiration == null) {return;} // Registration Cancelled
+            try { // Validate Date
+                ofLocalizedDate.parse(expiration);
+            } catch (Exception e) {
+                expiration = "";
+                JOptionPane.showMessageDialog(null, "Invalid Date");
+            } 
         }
         
         while (stock_amount <= 0){
             try {
                 String input = JOptionPane.showInputDialog("Amount in Stock (At Least One)");
-                if (input == null) {
-                    return;
-                }
+                if (input == null) {return;}
                 stock_amount = Integer.parseInt(input);
             } catch (Exception e) {
                 e.printStackTrace();
