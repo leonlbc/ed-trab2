@@ -54,7 +54,8 @@ public class Product implements Comparable<Product> {
 
     @Override
     public String toString() {
-        return "Name: " + name + "|__|Amount In Stock: " + stock_amount + "|__|Expiration Date: " + expiration_date;
+        return "Name: " + name + ",   Amount In Stock: " + stock_amount +
+         ",    Expiration Date: " + expiration_date;
     }
 
     @Override
