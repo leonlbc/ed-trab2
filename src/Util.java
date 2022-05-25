@@ -11,10 +11,9 @@ public class Util {
         String name = JOptionPane.showInputDialog("Product Name");
         Product productToSell = new Product(name);
         productToSell = stock.find(productToSell).toObject();
-        
-        int stock_amount = productToSell.getStockAmount();
+
         int amount = Integer.parseInt(JOptionPane.showInputDialog(
-                     String.format("Amount to Sell \n[%s in stock]", stock_amount)));
+                     String.format("Amount to Sell \n[%s in stock]", productToSell.getStockAmount())));
         
         try {
             productToSell.sell(amount);

@@ -65,7 +65,10 @@ public class OrderedList<T extends Comparable<T>> {
     public void remove(T obj) throws NoSuchElementException{
         if (!isEmpty()){
             Node<T> aux = find(obj);
-            if (aux == first) {
+            if (aux == first && aux == last) {
+                first = null;
+                last = null;
+            } else if (aux == first) {
                 first = aux.right;
                 aux.right.left = null;
             } else if (aux == last) {
